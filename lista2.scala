@@ -2,7 +2,7 @@ import scala.annotation.tailrec
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad3()
+    zad6()
   }
   def zad2() =
   {
@@ -36,22 +36,22 @@ object Main {
   }
   def zad4() =
   {
-    val list1 = List(-2, -1, 0, 1, 2)
-    val list2 = List((1, 2), (0, 1))
-    val List(_, _, x1, _, _) = list1  
-    val List(_, (x2, _)) = list2  
+    val List(_, _, x1, _, _) = List(-2, -1, 0, 1, 2)  
+    val List(_, (x2, _)) = List((1, 2), (0, 1))  
 
     println(x1)
     println(x2)
   }
   def zad5() =
   {
+    @tailrec
     def initSegment[A](xs: List[A], ys: List[A]):Boolean =
-      xs match {
-        case List() => true
-        case _ => {
-          xs.head == ys.head match {
-            case true => initSegment(xs.tail, ys.tail)
+      (xs, ys) match {
+        case (List(), _) => true
+        case (_, List()) => false
+        case (h1::t1, h2::t2) => {
+          h1 == h2 match {
+            case true => initSegment(t1, t2)
             case false => false
           }
         }
@@ -59,6 +59,7 @@ object Main {
 
     // tests
     println(initSegment(List(), List()) == true)
+    println(initSegment(List(5), List()) == false)
     println(initSegment(List(), List(1, 2, 3)) == true)
     println(initSegment(List(1, 2), List(1, 2, 3)) == true)
     println(initSegment(List(2, 2), List(1, 2, 3)) == false)
@@ -67,9 +68,10 @@ object Main {
   def zad6() =
   {
     def replaceNth[A](xs: List[A], n: Int, x: A):List[A] =
-      n match {
-        case 0 => x :: xs.tail
-        case _ => xs.head :: replaceNth(xs.tail, n-1, x)
+      (xs, n) match {
+        case (_::t1, 0) => x :: t1
+        case (h1::t1, _) => h1 :: replaceNth(t1, n-1, x)
+        case _ => throw new Exception("Invalid arguments")
       }
 
     println(replaceNth(List('o','l','a','m','a','k','o','t','a'), 1, 's'))

@@ -1,0 +1,15 @@
+object Main {
+  def main(args: Array[String]): Unit =
+  {
+    zad1()
+  }
+  def zad1() =
+  {
+    def pairChange[A](xs: List[A]):List[A] =
+      if (xs.isEmpty) List()
+      else if (xs.tail.isEmpty) List(xs.head)
+      else xs.tail.head :: xs.head :: pairChange(xs.tail.tail)
+
+    println(pairChange(List(1,3,2,5,4)))
+  }
+}

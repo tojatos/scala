@@ -22,11 +22,8 @@ object Main {
   {
     def count[A](x: A, xs: List[A]):Int =
       if (xs.isEmpty) 0
-      else {
-        count(x, xs.tail) + {
-          if (x == xs.head) 1 else 0
-        }
-      }
+      else count(x, xs.tail) + (if (x == xs.head) 1 else 0)
+
     println(count(1, List(3,4,1)))
     println(count(1, List(3,4,2)))
     println(count('a', List('a','l','a')))

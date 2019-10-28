@@ -2,7 +2,7 @@ import scala.annotation.tailrec
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad6()
+    zad5()
   }
   def zad2() =
   {
@@ -49,12 +49,8 @@ object Main {
       (xs, ys) match {
         case (List(), _) => true
         case (_, List()) => false
-        case (h1::t1, h2::t2) => {
-          h1 == h2 match {
-            case true => initSegment(t1, t2)
-            case false => false
-          }
-        }
+        case (h1::t1, h2::t2) =>
+          if (h1 == h2) initSegment(t1, t2) else false
       }
 
     // tests

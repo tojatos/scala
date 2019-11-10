@@ -1,0 +1,8 @@
+version: '3'
+services:
+  scala:
+    image: "hseeberger/scala-sbt:8u222_1.3.2_2.13.1"
+    command: "tail -f /dev/null"
+    volumes:
+      - .:/scala_scripts
+    working_dir: /scala_scripts

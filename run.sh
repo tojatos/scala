@@ -1,2 +1,2 @@
 #!/bin/bash
-scala ${1}
+docker-compose exec scala scala ${1}

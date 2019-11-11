@@ -3,7 +3,7 @@ import scala.annotation.tailrec
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad3()
+    zad5()
   }
   def zad2() =
   {
@@ -23,5 +23,21 @@ object Main {
     def sumProd(xs: List[Int]): (Int, Int) =
       xs.foldLeft(0,1)((a, x) => (a._1+x, a._2*x))
     println(sumProd(List(1,3,2,-2,3)))
+  }
+  def zad5() =
+  {
+    def insertSort[A](f: (A, A) => Boolean, xs: List[A]): List[A] = {
+      def insert(elem: A, xs: List[A]): List[A] = xs match {
+        case Nil => List(elem)
+        case ys @ h::t => if (f(h, elem)) elem::ys else h::insert(elem, t)
+      }
+
+      xs.foldLeft(List[A]())((acc, elem) => insert(elem, acc))
+    }
+    def list = List((5,0),(-8,1),(3,2),(74,3),(3,4),(54,5))
+    def asc[B](a: (Int,B), b: (Int,B)): Boolean = a._1 < b._1
+    def desc[B](a: (Int,B), b: (Int,B)): Boolean = a._1 > b._1
+    println(insertSort(asc, list))
+    println(insertSort(desc, list))
   }
 }

@@ -1,11 +1,16 @@
 import scala.annotation.tailrec
+
 sealed trait BT[+A]
 case object Empty extends BT[Nothing]
 case class Node[A](elem: A, left: BT[A], right: BT[A]) extends BT[A]
+
+sealed trait Graphs[A]
+case class Graph[A](succ: A=>List[A]) extends Graphs[A] 
+
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad4()
+    zad5()
   }
   def zad3() =
   {
@@ -93,5 +98,39 @@ object Main {
     }
     println(inPath(tt))
     println(outPath(tt))
+  }
+  def zad5() =
+  {
+    val g = Graph((i: Int) => i match {
+      case 0 => List(3)
+      case 1 => List(0,2,4)
+      case 2 => List(1)
+      case 3 => Nil
+      case 4 => List(0,2)
+      case n => throw new Exception("Graph g: node " + n
+        + " doesn't exist")
+    })
+
+    //def breadthSearch[A] (g: Graph[A]) (startNode: A): List[A] = {
+    //  def search(visited: List[A])(queue: List[A]): List[A] = queue match {
+    //    case Nil => Nil
+    //    case h::t =>
+    //      if (visited contains h) search(visited)(t)
+    //      else h::search(h::visited)(t ++ (g succ h))
+    //  }
+    //  search (Nil) (List(startNode))
+    //}
+    def depthSearch[A] (g: Graph[A]) (startNode: A): List[A] = {
+      def search(visited: List[A])(queue: List[A]): List[A] = queue match {
+        case Nil => Nil
+        case h::t =>
+          if (visited contains h) search(visited)(t)
+          else h::search(h::visited)((g succ h) ::: t)
+      }
+      search (Nil) (List(startNode))
+    }
+
+    //println(breadthSearch(g)(4))
+    println(depthSearch(g)(4))
   }
 }

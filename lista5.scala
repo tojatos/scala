@@ -7,8 +7,9 @@ case class LNode[+A](elem: A, left: () => lBT[A], right: () => lBT[A]) extends l
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad3()
+    zad1()
   }
+  def lfrom (k:Int):LazyList[Int] = k#::lfrom(k+1)
   def zad1() =
   {
     def lrepeat[A](k: Int)(lxs: LazyList[A]): LazyList[A] = {
@@ -17,10 +18,11 @@ object Main {
         else lrepeatIter(x, k-1, x #:: lxs)
       lxs match {
         case LazyList() => LazyList()
-        case hd #:: tl => lrepeatIter(hd, k, lrepeat(k)(tl))
+        case hd #:: tl => lrepeatIter(hd, k, LazyList()) #::: lrepeat(k)(tl)
       }
     }
     println(lrepeat(3)(LazyList(1,2,3)).force)
+    println(lrepeat(3)(lfrom(0)).take(10).force)
   }
   def zad2() =
   {

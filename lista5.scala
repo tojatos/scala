@@ -12,14 +12,23 @@ object Main {
   def lfrom (k:Int):LazyList[Int] = k#::lfrom(k+1)
   def zad1() =
   {
+    //def lrepeat[A](k: Int)(lxs: LazyList[A]): LazyList[A] = {
+    //  def lrepeatIter[A](x: A, k: Int, lxs: LazyList[A]): LazyList[A] =
+    //    if (k==0) lxs
+    //    else lrepeatIter(x, k-1, x #:: lxs)
+    //  lxs match {
+    //    case LazyList() => LazyList()
+    //    case hd #:: tl => lrepeatIter(hd, k, LazyList()) #::: lrepeat(k)(tl)
+    //  }
+    //}
     def lrepeat[A](k: Int)(lxs: LazyList[A]): LazyList[A] = {
-      def lrepeatIter[A](x: A, k: Int, lxs: LazyList[A]): LazyList[A] =
-        if (k==0) lxs
-        else lrepeatIter(x, k-1, x #:: lxs)
-      lxs match {
-        case LazyList() => LazyList()
-        case hd #:: tl => lrepeatIter(hd, k, LazyList()) #::: lrepeat(k)(tl)
-      }
+      def lrepeatHelper[A](a: Int, l: LazyList[A]): LazyList[A] =
+        (a, l) match {
+          case (_, LazyList()) => LazyList()
+          case (0, _ #:: tl) => lrepeatHelper(k, tl)
+          case (a, hd #:: _) => hd #:: lrepeatHelper(a-1, l)
+        }
+      lrepeatHelper(k, lxs)
     }
     println(lrepeat(3)(LazyList(1,2,3)).force)
     println(lrepeat(3)(lfrom(0)).take(10).force)

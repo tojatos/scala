@@ -3,20 +3,20 @@ import scala.annotation.tailrec
 object Main {
   def main(args: Array[String]): Unit =
   {
-    zad2()
+    zad1()
   }
   def zad1() =
   {
-    def whileLoop(cond: () => Boolean, expr: () => Unit): Unit =
-      if (cond()) {
-        expr()
-        whileLoop(cond, expr)
+    def whileLoop(cond: => Boolean)(expr: => Unit): Unit =
+      if (cond) {
+        expr
+        whileLoop(cond)(expr)
       }
     var x = 5;
-    whileLoop(() => x != 0, () => {
+    whileLoop(x != 0) {
       println(x)
       x = x - 1;
-    })
+    }
   }
   def zad2() =
   {

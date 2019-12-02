@@ -35,12 +35,12 @@ object Main {
   }
   def zad2() =
   {
-    def lfib(): LazyList[Int] = {
+    val lfib = { // val żeby spamiętywanie działało
       def lfibIter(a: Int, b: Int): LazyList[Int] =
         a #:: lfibIter(b, a+b)
       lfibIter(0, 1)
     }
-    println(lfib().take(10).force)
+    println(lfib.take(10).force)
   }
   def zad3() =
   {

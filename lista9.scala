@@ -4,7 +4,7 @@ object Main {
 
   def main(args: Array[String]): Unit =
   {
-    zad2()
+    zad3()
   }
 
   def zad1() = {
@@ -26,6 +26,25 @@ object Main {
     t1.hour = 21
     println(t1.before(t2))
     println(t2.before(t1))
+  }
+
+  def zad3() = {
+    val p1 = new Pojazd("Fbi", "Mazda", 1992, "AL43Q")
+    val p2 = new Pojazd("Stary", "Opel", 1992)
+    val p3 = new Pojazd("Mimi", "Audi")
+    val p4 = new Pojazd("Keke", "Volvo", numer_rej="ABC")
+    print(p1)
+    print(p2)
+    print(p3)
+    print(p4)
+  }
+
+  def print(pojazd: Pojazd) = {
+    println(pojazd.producent)
+    println(pojazd.model)
+    println(pojazd.rok)
+    println(pojazd.numer_rej)
+    println()
   }
 
 }
@@ -68,3 +87,6 @@ class Time3(time: Int) {
     m = if (newTime < 0) 0 else newTime * 60
   }
 }
+
+class Pojazd(val producent: String, val model: String, val rok: Int = -1, var numer_rej: String = "")
+

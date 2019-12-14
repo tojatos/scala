@@ -4,7 +4,7 @@ object Main {
 
   def main(args: Array[String]): Unit =
   {
-    zad3()
+    zad4()
   }
 
   def zad1() = {
@@ -46,6 +46,30 @@ object Main {
     println(pojazd.numer_rej)
     println()
   }
+
+  def metoda1() = metoda2()
+  def metoda2() = metoda3()
+  def metoda3() = throw new Exception("Wyjatek zgloszony w metoda3")
+
+  def zad4() = {
+    try {
+      metoda1()
+    } catch {
+      case e: Exception => {
+        println(e.getMessage() + "\n")
+        e.printStackTrace()
+      }
+    }
+  }
+  /*
+    java.lang.Exception: Wyjatek zgloszony w metoda3
+            at Main$.metoda3(lista9.scala:52)
+            at Main$.metoda2(lista9.scala:51)
+            at Main$.metoda1(lista9.scala:50)
+            at Main$.zad4(lista9.scala:56)
+            at Main$.main(lista9.scala:7)
+            at Main.main(lista9.scala)
+   */
 
 }
 
@@ -89,4 +113,3 @@ class Time3(time: Int) {
 }
 
 class Pojazd(val producent: String, val model: String, val rok: Int = -1, var numer_rej: String = "")
-

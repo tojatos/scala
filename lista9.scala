@@ -85,6 +85,7 @@ object Time {
 }
 
 class Time2(hours: Int, minutes: Int) {
+  // MISSING: check for <24, <60, second argument for require
   require(hours >= 0 && minutes >= 0) 
   private var h: Int = hours
   private var m: Int = minutes
@@ -110,6 +111,7 @@ class Time3(time: Int) {
   def hours_=(newTime: Int): Unit = {
     m = if (newTime < 0) 0 else newTime * 60
   }
+  //MISSING: def minute, it has to be identical to Time2 in functionality
 }
 
 class Pojazd(val producent: String, val model: String, val rok: Int = -1, var numer_rej: String = "")

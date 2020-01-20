@@ -8,7 +8,19 @@ object Main {
   }
   def zad1() = {
     val a = new Pair(5, "Ala")
+    val b = new AbstractPair {
+      type A = Int
+      type B = String
+      var fst = 5
+      var snd = "Ala"
+    }
     println(a)
+    println(b)
+    //scala> a
+    //res0: Pair[Int,String] = (5, Ala)
+    //
+    //scala> b
+    //res1: AbstractPair{type A = Int; type B = String} = (5, Ala)
   }
   def zad5() = {
     def wordCounter(text: String): Map[String, Int] = {
@@ -20,6 +32,14 @@ object Main {
 
 class Pair[A,B](var fst: A, var snd: B)
 {
+  override def toString = s"($fst, $snd)"
+}
+
+trait AbstractPair {
+  type A
+  type B
+  var fst: A
+  var snd: B
   override def toString = s"($fst, $snd)"
 }
 

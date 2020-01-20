@@ -4,7 +4,7 @@ object Main {
 
   def main(args: Array[String]): Unit =
   {
-    zad1()
+    zad3()
   }
   def zad1() = {
     val a = new Pair(5, "Ala")
@@ -21,6 +21,19 @@ object Main {
     //
     //scala> b
     //res1: AbstractPair{type A = Int; type B = String} = (5, Ala)
+  }
+  def zad3() = {
+    val a = new Pracownik("Nowak")
+    println(a)
+    val b = new Pracownik("Kowalski")
+    println(a)
+    println(b)
+    a.zwolnij
+    println(a)
+    println(b)
+    b.zwolnij
+    println(a)
+    println(b)
   }
   def zad5() = {
     def wordCounter(text: String): Map[String, Int] = {
@@ -43,7 +56,23 @@ trait AbstractPair {
   override def toString = s"($fst, $snd)"
 }
 
+class Pracownik(var nazwisko: String) {
+  private[this] var zwolniony: Boolean = false
+  private[this] var liczbaPrac: this.type = {0; this}
+  private[this] def zatrudnij: this.type = {liczbaPrac += 1; this}
+  def liczbaPracownikow = liczbaPrac
+  def zwolnij: this.type = {
+    liczbaPracownikow -= 1
+    zwolniony = true
+    this
+  }
+  override def toString = s"$nazwisko, zwolniony: $zwolniony"
+  zatrudnij
+}
+
 class Point(var x: Double = 0.0, var y: Double = 0.0) {
   override def toString = "[" + x + ", " + y + "]"
 }
-//class Circle(override var x: Double = 0.0, override var y: Double = 0.0) extends Point
+
+class Circle(x: Double, y: Double, var r: Double = 0.0) extends Point(x, y)
+class Cylinder(x: Double, y: Double, r: Double, var h: Double = 0.0) extends Circle(x, y, r)

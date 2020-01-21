@@ -4,7 +4,7 @@ object Main {
 
   def main(args: Array[String]): Unit =
   {
-    zad3()
+    zad5()
   }
   def zad1() = {
     val a = new Pair(5, "Ala")
@@ -42,10 +42,19 @@ object Main {
     println(a.liczbaPracownikow)
     println(b.liczbaPracownikow)
   }
+  def zad4() = {
+    val c = new Cylinder(3, 4, 5, 6)
+    val p = new Point(3, 4)
+    p.x_=(34)
+    c.r_=(99).h_=(32)
+    println(c)
+    println(p)
+  }
   def zad5() = {
-    def wordCounter(text: String): Map[String, Int] = {
+    def wordCounter(text: String): Map[String, Int] =
       Map() ++ text.split(' ').groupBy(i => i).view.mapValues(_.size)
-    }
+    //def wordCounter2(text: String) =
+    //  Map() ++ text.split(' ').groupBy(i => i).view.mapValues(_.toList)
     println(wordCounter("Ala ma kota Ala hej ho hej ho hej sokoły"))
   }
 }
@@ -77,9 +86,21 @@ object Pracownik {
   private var liczbaPracownikow = 0
 }
 
-class Point(var x: Double = 0.0, var y: Double = 0.0) {
-  override def toString = "[" + x + ", " + y + "]"
+class Point(protected var xt: Double = 0.0, protected var yt: Double = 0.0) {
+  def x_=(newx: Double):this.type = {xt=newx; this}
+  def x = xt
+  def y_=(newy: Double):this.type = {yt=newy; this}
+  def y = yt
+  override def toString = s"[$x,$y]"
 }
 
-class Circle(x: Double, y: Double, var r: Double = 0.0) extends Point(x, y)
-class Cylinder(x: Double, y: Double, r: Double, var h: Double = 0.0) extends Circle(x, y, r)
+class Circle(xt: Double, yt: Double, protected var rt: Double = 0.0) extends Point(xt, yt) {
+  def r_=(newr: Double):this.type = {rt=newr; this}
+  def r = rt
+  override def toString = s"[$x,$y,$r]"
+}
+class Cylinder(xt: Double, yt: Double, rt: Double, protected var ht: Double = 0.0) extends Circle(xt, yt, rt) {
+  def h_=(newh: Double):this.type = {ht=newh; this}
+  def h = ht
+  override def toString = s"[$x,$y,$r,$h]"
+}

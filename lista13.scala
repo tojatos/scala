@@ -25,15 +25,22 @@ object Main {
   def zad3() = {
     val a = new Pracownik("Nowak")
     println(a)
+    println(a.liczbaPracownikow)
     val b = new Pracownik("Kowalski")
     println(a)
     println(b)
+    println(a.liczbaPracownikow)
+    println(b.liczbaPracownikow)
     a.zwolnij
     println(a)
     println(b)
+    println(a.liczbaPracownikow)
+    println(b.liczbaPracownikow)
     b.zwolnij
     println(a)
     println(b)
+    println(a.liczbaPracownikow)
+    println(b.liczbaPracownikow)
   }
   def zad5() = {
     def wordCounter(text: String): Map[String, Int] = {
@@ -57,17 +64,17 @@ trait AbstractPair {
 }
 
 class Pracownik(var nazwisko: String) {
+  Pracownik.liczbaPracownikow += 1
   private[this] var zwolniony: Boolean = false
-  private[this] var liczbaPrac: this.type = {0; this}
-  private[this] def zatrudnij: this.type = {liczbaPrac += 1; this}
-  def liczbaPracownikow = liczbaPrac
-  def zwolnij: this.type = {
-    liczbaPracownikow -= 1
+  def liczbaPracownikow = Pracownik.liczbaPracownikow
+  def zwolnij = {
+    Pracownik.liczbaPracownikow -= 1
     zwolniony = true
-    this
   }
   override def toString = s"$nazwisko, zwolniony: $zwolniony"
-  zatrudnij
+}
+object Pracownik {
+  private var liczbaPracownikow = 0
 }
 
 class Point(var x: Double = 0.0, var y: Double = 0.0) {

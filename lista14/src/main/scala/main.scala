@@ -23,5 +23,6 @@ object TextFields extends SimpleSwingApplication {
         outText.text = inText.text
         inText.text = ""
     }
+    centerOnScreen()
   }
 }

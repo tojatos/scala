@@ -4,7 +4,7 @@ object Main {
 
   def main(args: Array[String]): Unit =
   {
-    zad5()
+    zad3()
   }
   def zad1() = {
     val a = new Pair(5, "Ala")
@@ -75,15 +75,17 @@ trait AbstractPair {
 class Pracownik(var nazwisko: String) {
   Pracownik.liczbaPracownikow += 1
   private[this] var zwolniony: Boolean = false
-  def liczbaPracownikow = Pracownik.liczbaPracownikow
   def zwolnij = {
-    Pracownik.liczbaPracownikow -= 1
-    zwolniony = true
+    if(!zwolniony) {
+      Pracownik.liczbaPracownikow -= 1
+      zwolniony = true
+    }
   }
   override def toString = s"$nazwisko, zwolniony: $zwolniony"
 }
 object Pracownik {
   private var liczbaPracownikow = 0
+  def liczbaPrac = Pracownik.liczbaPracownikow
 }
 
 class Point(protected var xt: Double = 0.0, protected var yt: Double = 0.0) {
